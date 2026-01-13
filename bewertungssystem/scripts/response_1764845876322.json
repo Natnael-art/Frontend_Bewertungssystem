@@ -1,0 +1,222 @@
+[
+  {
+    "name": "Stammdaten & Verwaltung",
+    "kategorie": "Stammdaten",
+    "beschreibung": "Persönliche Daten, Vertragsdaten, Dokumenten-Managment, Organisations-Struktur",
+    "wertigkeit": "K.O",
+    "faktor": 2,
+    "id": 1,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Zeiterfassung",
+    "kategorie": "Zeiterfassung",
+    "beschreibung": "Arbeitszeiten erfassen, Pause, Überstunden, Projekt-Zuordnung, Mobile Erfassung",
+    "wertigkeit": "K.O",
+    "faktor": 2,
+    "id": 2,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Abwesenheit-Mgmt",
+    "kategorie": "Abwesenheit",
+    "beschreibung": "Krankmeldung, Attest-Verwaltung, Sonderurlaub, eAu Integration",
+    "wertigkeit": "K.O",
+    "faktor": 2,
+    "id": 3,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Urlaub",
+    "kategorie": "Urlaub",
+    "beschreibung": "Urlaubsanträge, Genehmigungs-Workflow, Urlaubs-Kontingente, Team-Übersicht",
+    "wertigkeit": "K.O",
+    "faktor": 2,
+    "id": 4,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Projekt & Stellenkostenbuchung",
+    "kategorie": "Projektkosten",
+    "beschreibung": "Projekt-Stammdaten, Zeiten buchen, Kostenstellen, Budget-Überwachung",
+    "wertigkeit": "K.O",
+    "faktor": 2,
+    "id": 5,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Entgeltberechnung",
+    "kategorie": "Entgelt",
+    "beschreibung": "Gehaltsbestandteile, Sonderzahlungen, steuerliche Komponenten, SV-Daten",
+    "wertigkeit": "K.O",
+    "faktor": 2,
+    "id": 6,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Schnittstellen-LoBU Anbieter",
+    "kategorie": "Schnittstellen",
+    "beschreibung": "DATEV Schnittstelle, bidirektionaler Datenaustausch, andere LoBu-Anbieter",
+    "wertigkeit": "K.O",
+    "faktor": 2,
+    "id": 7,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Reisekosten",
+    "kategorie": "Reisekosten",
+    "beschreibung": "Reiseanträge, Spesen, Kilometer-Pauschalen, Beleg-Erfassung, DATEV Integration",
+    "wertigkeit": "K.O",
+    "faktor": 2,
+    "id": 8,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Arbeitsmittelverwaltung",
+    "kategorie": "Arbeitsmittel",
+    "beschreibung": "Hardware, Software-Lizenzen, Zugangskarten, Ausgabe & Rückgabe",
+    "wertigkeit": "wichtig",
+    "faktor": 1.5,
+    "id": 9,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Personal-Recruiting",
+    "kategorie": "Recruiting",
+    "beschreibung": "Stellenausschreibungen, Bewerber-Pool, Bewerbungsprozess, Job-Portale",
+    "wertigkeit": "wichtig",
+    "faktor": 1.5,
+    "id": 10,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Arbeitsmittelverwaltung",
+    "kategorie": "EUnterschrift",
+    "beschreibung": "Rechtssichere e-Signaturen, Vorlagen, Workflow, Archivierung",
+    "wertigkeit": "Mindestanforderung",
+    "faktor": 1,
+    "id": 11,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Personal-Marketing",
+    "kategorie": "Marketing",
+    "beschreibung": "Employer Branding, Karriere-Seiten, Social Media, Talent-Pool",
+    "wertigkeit": "Mindestanforderung",
+    "faktor": 1,
+    "id": 12,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Personal-Einstellung",
+    "kategorie": "Einstellung",
+    "beschreibung": "Onboarding-Checklisten, Automatische Tasks, Dokumenten-Vorlagen",
+    "wertigkeit": "Mindestanforderung",
+    "faktor": 1,
+    "id": 13,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Berichtwesen",
+    "kategorie": "Berichtwesen",
+    "beschreibung": "Standard-Reports, Custom Reports, Dashboard, Export-Funktionen",
+    "wertigkeit": "Mindestanforderung",
+    "faktor": 1,
+    "id": 14,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Personal-Offboarding",
+    "kategorie": "Offboarding",
+    "beschreibung": "Offboarding-Checklisten, Rückgabe-Prozess, Zugänge sperren",
+    "wertigkeit": "Mindestanforderung",
+    "faktor": 1,
+    "id": 15,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Personalqualifizierung",
+    "kategorie": "Qualifizierung",
+    "beschreibung": "Schulungskatalog, Teilnahme-Verwaltung, Zertifikate",
+    "wertigkeit": "Mindestanforderung",
+    "faktor": 1,
+    "id": 16,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Leistungsbeurteilungen",
+    "kategorie": "Leistung",
+    "beschreibung": "Zielvereinbarungen, Feedback-Zyklen, 360°-Feedback, Entwicklungs-Pläne",
+    "wertigkeit": "Mindestanforderung",
+    "faktor": 1,
+    "id": 17,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Eigene SW-Lösung \"Payroll\"",
+    "kategorie": "Payroll",
+    "beschreibung": "Komplette Lohnabrechnung, Steuerberechnungen, SV-Beiträge, Lohnsteuer-Anmeldungen",
+    "wertigkeit": "extra",
+    "faktor": 0.8,
+    "id": 18,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Workflow-Optimierungen",
+    "kategorie": "Workflow",
+    "beschreibung": "Custom Workflows, Automatische Benachrichtigungen, Approval-Prozesse",
+    "wertigkeit": "extra",
+    "faktor": 0.8,
+    "id": 19,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Strateg. Personal-Planungen",
+    "kategorie": "Strategie",
+    "beschreibung": "Personalbedarfs-Planung, Nachfolge-Planung, Talent-Pipeline",
+    "wertigkeit": "ohne Wertung",
+    "faktor": 0,
+    "id": 20,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Vergütungs-Mgmt",
+    "kategorie": "Verguetung",
+    "beschreibung": "Gehaltsbänder, Gehaltsentwicklungen, Markt-Vergleiche, Bonus-Systeme",
+    "wertigkeit": "ohne Wertung",
+    "faktor": 0,
+    "id": 21,
+    "max_punkte": 10,
+    "aktiv": true
+  },
+  {
+    "name": "Unternehmens-Kultur",
+    "kategorie": "Kultur",
+    "beschreibung": "Feedback-Kultur, Mitarbeiter-Umfrage, Recognition, Social Intranet",
+    "wertigkeit": "ohne Wertung",
+    "faktor": 0,
+    "id": 22,
+    "max_punkte": 10,
+    "aktiv": true
+  }
+]
