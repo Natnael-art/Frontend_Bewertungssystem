@@ -38,6 +38,14 @@ Tabellen = {
             FOREIGN KEY (kriterium_id) REFERENCES kriterien(id),
             UNIQUE(unternehmen_id, kriterium_id)
         );
+    """,
+    "users": """
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            role TEXT DEFAULT 'user'
+        );
     """
 }
 

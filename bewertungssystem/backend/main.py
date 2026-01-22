@@ -89,6 +89,23 @@ class Punktestandantwort(BaseModel):
     punkte_nach_kategorie: dict
     punkte_nach_wertigkeit: dict
 
+class UserBase(BaseModel):
+    email: str
+    role: str = "user"
+
+class UserCreate(BaseModel):
+    email: str
+    password: str
+    role: str = "user"
+
+class User(UserBase):
+    id: int
+    model_config = ConfigDict(from_attributes=True)
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
 # Database Verbindungshelfer 
 def get_db():
     verbinde = sqlite3.connect("bewertungssystem.db")
@@ -116,6 +133,15 @@ def read_root():
 @nati.get("/health")
 def health_check():
     return{"status": "health", "timestamp": datetime.now()}
+
+@nati.post("/auth/login", response_model=User)
+def login(request: LoginRequest, db: sqlite3.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute("SELECT id, email, role FROM users WHERE email = ? AND password = ?", (request.email, request.password))
+    user_row = cursor.fetchone()
+    if not user_row:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    return dict(user_row)
 
 # unternehmen Endpoints
 @nati.get("/unternehmen", response_model=List[Unternehmen])
