@@ -47,3 +47,7 @@ bewertungssystem/
 temp_app/
 *.db
 __pycache__/
+bewertungssystem/
+*.db
+__pycache__/
+*.pyc
