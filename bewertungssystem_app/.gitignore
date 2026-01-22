@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+bewertungssystem/
+temp_app/
+*.db
+__pycache__/
