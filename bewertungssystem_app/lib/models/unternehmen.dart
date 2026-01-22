@@ -1,16 +1,21 @@
-class Unternehmen {
-  final int id;
-  final String name;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Unternehmen({required this.id, required this.name});
+part 'unternehmen.freezed.dart';
+part 'unternehmen.g.dart';
 
-  factory Unternehmen.fromJson(Map<String, dynamic> json) => Unternehmen(
-        id: json['id'] is int ? json['id'] as int : int.parse(json['id'].toString()),
-        name: json['name']?.toString() ?? '',
-      );
+@freezed
+class Unternehmen with _$Unternehmen {
+  const Unternehmen._();
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-      };
+  const factory Unternehmen({
+    required int id,
+    required String name,
+    @Default('HR-Software') String branche,
+    @JsonKey(name: "mitarbeiter_range") String? mitarbeiterRange,
+    String? website,
+    @JsonKey(name: "created_at") required DateTime createdAt,
+  }) = _Unternehmen;
+
+  factory Unternehmen.fromJson(Map<String, dynamic> json) => 
+  _$UnternehmenFromJson(json);
 }

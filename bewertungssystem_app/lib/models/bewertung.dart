@@ -1,51 +1,57 @@
-class Bewertung {
-  final int id;
-  final int unternehmenId;
-  final double score;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Bewertung({required this.id, required this.unternehmenId, required this.score});
+part 'bewertung.freezed.dart';
+part 'bewertung.g.dart';
 
-  factory Bewertung.fromJson(Map<String, dynamic> json) => Bewertung(
-        id: json['id'] is int ? json['id'] as int : int.parse(json['id'].toString()),
-        unternehmenId: json['unternehmenId'] is int ? json['unternehmenId'] as int : int.parse(json['unternehmenId'].toString()),
-        score: (json['score'] as num).toDouble(),
-      );
+@freezed
+class BewertungCreate with _$BewertungCreate {
+  const factory BewertungCreate({
+    @JsonKey(name: 'unternehmen_id') required int unternehmenId,
+    @JsonKey(name: 'kriterium_id') required int kriteriumId,
+    required double punkte,
+    String? kommentar,
+    @Default("System") String benutzer,
+  }) = _BewertungCreate;
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'unternehmenId': unternehmenId,
-        'score': score,
-      };
+  factory BewertungCreate.fromJson(Map<String, dynamic> json)
+      => _$BewertungCreateFromJson(json);
 }
 
-class BewertungCreate {
-  final int unternehmenId;
-  final Map<String, dynamic> values;
+@freezed
+class Bewertung with _$Bewertung {
+  const factory Bewertung({
+    required int id,
+    @JsonKey(name: 'unternehmen_id') required int unternehmenId,
+    @JsonKey(name: 'kriterium_id') required int kriteriumId,
+    required double punkte,
+    String? kommentar,
+    @Default("System") String benutzer,
+    @JsonKey(name: 'bewertet_am') required DateTime bewertetAm,
+  }) = _Bewertung;
 
-  BewertungCreate({required this.unternehmenId, required this.values});
-
-  Map<String, dynamic> toJson() => {
-        'unternehmenId': unternehmenId,
-        'values': values,
-      };
+  factory Bewertung.fromJson(Map<String, dynamic> json)
+      => _$BewertungFromJson(json);
 }
 
-class BewertungDetail {
-  final int id;
-  final int unternehmenId;
-  final Map<String, dynamic> details;
+@freezed
+class BewertungDetail with _$BewertungDetail {
+  const BewertungDetail._();
 
-  BewertungDetail({required this.id, required this.unternehmenId, required this.details});
+  const factory BewertungDetail({
+    required int id,
+    @JsonKey(name: 'unternehmen_id') required int unternehmenId,
+    @JsonKey(name: 'kriterium_id') required int kriteriumId,
+    required double punkte,
+    String? kommentar,
+    @Default("System") String benutzer,
+    @JsonKey(name: 'bewertet_am') required DateTime bewertetAm,
+    @JsonKey(name: 'kriterium_name') required String kriteriumName,
+    @JsonKey(name: 'kriterium_wertigkeit') required String kriteriumWertigkeit,
+    @JsonKey(name: 'kriterium_faktor') required double kriteriumFaktor,
+  }) = _BewertungDetail;
 
-  factory BewertungDetail.fromJson(Map<String, dynamic> json) => BewertungDetail(
-        id: json['id'] is int ? json['id'] as int : int.parse(json['id'].toString()),
-        unternehmenId: json['unternehmenId'] is int ? json['unternehmenId'] as int : int.parse(json['unternehmenId'].toString()),
-        details: (json['details'] as Map<String, dynamic>?) ?? {},
-      );
+  factory BewertungDetail.fromJson(Map<String, dynamic> json)
+      => _$BewertungDetailFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'unternehmenId': unternehmenId,
-        'details': details,
-      };
+  double get gewichtetePunkte => punkte * kriteriumFaktor;
 }
