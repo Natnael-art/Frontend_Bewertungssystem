@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../repositories/vergleich_repository.dart';
-import '../providers/api_service_provider.dart';
+import '../services/api_service.dart';
+import '../models/vergleich.dart';
 
 class VergleichState {
   final List<int> selectedIds;
-  final Map<String, dynamic>? result;
+  final VergleichResponse? result;
   final bool loading;
 
   VergleichState({
@@ -15,7 +16,7 @@ class VergleichState {
 
   VergleichState copyWith({
     List<int>? selectedIds,
-    Map<String, dynamic>? result,
+    VergleichResponse? result,
     bool? loading,
   }) {
     return VergleichState(
@@ -61,13 +62,8 @@ class VergleichNotifier extends StateNotifier<VergleichState> {
   }
 }
 
-final vergleichRepositoryProvider = Provider<VergleichRepository>((ref) {
-  final api = ref.watch(apiServiceProvider);
-  return VergleichRepository(api: api);
-}); 
-
 final vergleichProvider =
     StateNotifierProvider<VergleichNotifier, VergleichState>((ref) {
-  final repo = ref.watch(vergleichRepositoryProvider);
-  return VergleichNotifier(repo);
+  final api = ref.watch(apiServiceProvider);
+  return VergleichNotifier(VergleichRepository(api: api));
 });

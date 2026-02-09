@@ -6,11 +6,16 @@ import '../../widgets/unternehmen/unternehmen_card.dart';
 import '../../widgets/unternehmen/add_unternehmen_dialog.dart';
 import '../../widgets/unternehmen/unternehmen_details_dialog.dart';
 
-class AdminUnternehmenPage extends ConsumerWidget {
+class AdminUnternehmenPage extends ConsumerStatefulWidget {
   const AdminUnternehmenPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AdminUnternehmenPage> createState() => _AdminUnternehmenPageState();
+}
+
+class _AdminUnternehmenPageState extends ConsumerState<AdminUnternehmenPage> {
+  @override
+  Widget build(BuildContext context) {
     final unternehmenAsync = ref.watch(unternehmenListProvider);
 
     return Scaffold(
@@ -19,7 +24,7 @@ class AdminUnternehmenPage extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () => ref.refresh(unternehmenListProvider),
+            onPressed: () => ref.invalidate(unternehmenListProvider),
           ),
         ],
       ),
@@ -28,7 +33,7 @@ class AdminUnternehmenPage extends ConsumerWidget {
           context: context,
           builder: (_) => AddUnternehmenDialog(
             onUnternehmenAdded: () =>
-                ref.refresh(unternehmenListProvider),
+                ref.invalidate(unternehmenListProvider),
           ),
         ),
         child: const Icon(Icons.add),
@@ -92,15 +97,19 @@ class AdminUnternehmenPage extends ConsumerWidget {
 
               try {
                 await repo.deleteUnternehmen(u.id);
-                ref.refresh(unternehmenListProvider);
+                ref.invalidate(unternehmenListProvider);
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("${u.name} wurde gelöscht")),
-                );
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("${u.name} wurde gelöscht")),
+                  );
+                }
               } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Fehler: $e")),
-                );
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Fehler: $e")),
+                  );
+                }
               }
             },
             child: const Text("Löschen"),

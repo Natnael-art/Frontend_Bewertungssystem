@@ -5,6 +5,7 @@ import '../../models/unternehmen.dart';
 import '../../providers/unternehmen_provider.dart';
 import '../../providers/kriterium_provider.dart';
 import '../../providers/bewertung_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class BewertungenPage extends ConsumerWidget {
   const BewertungenPage({super.key});
@@ -15,6 +16,14 @@ class BewertungenPage extends ConsumerWidget {
     final selected = ref.watch(selectedUnternehmenProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Bewertungen"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+        ),
+      ),
+
       body: unternehmenAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, _) => Center(child: Text("Fehler: $err")),

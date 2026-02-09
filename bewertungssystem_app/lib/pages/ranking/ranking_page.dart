@@ -6,6 +6,8 @@ import 'package:bewertungssystem_app/providers/ranking_provider.dart';
 import 'package:bewertungssystem_app/widgets/ranking/ranking_card.dart';
 import 'package:bewertungssystem_app/widgets/ranking/ranking_stats_header.dart';
 
+import 'package:go_router/go_router.dart';
+
 
 class RankingPage extends ConsumerWidget {
   const RankingPage({super.key});
@@ -15,6 +17,14 @@ class RankingPage extends ConsumerWidget {
     final rankingAsync = ref.watch(rankingProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Ranking"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+        ),
+      ),
+
       body: rankingAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, _) => Center(child: Text("Fehler: $err")),

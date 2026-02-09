@@ -19,7 +19,8 @@ class UnternehmenDetailsDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _row("Branche", unternehmen.branche),
+            if (unternehmen.branche != null)
+              _row("Branche", unternehmen.branche!),
 
             if (_hasValue(unternehmen.mitarbeiterRange))
               _row("Mitarbeiter", unternehmen.mitarbeiterRange!),
@@ -27,7 +28,8 @@ class UnternehmenDetailsDialog extends StatelessWidget {
             if (_hasValue(unternehmen.website))
               _row("Website", unternehmen.website!),
 
-            _row("Hinzugefügt", _formatDate(unternehmen.createdAt)),
+            if (unternehmen.erstelltAm != null)
+              _row("Hinzugefügt", _formatDate(unternehmen.erstelltAm!)),
           ],
         ),
       ),

@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/unternehmen.dart';
 import '../models/kriterium.dart';
@@ -8,14 +11,18 @@ import 'api_config.dart';
 
 class ApiService {
   final String baseUrl = ApiConfig.baseUrl;
+  final _storage = const FlutterSecureStorage();
 
-  // -----------------------------
-  // Helper: GET
-  // -----------------------------
   Future<dynamic> _get(String endpoint) async {
-    final response = await http
-        .get(Uri.parse('$baseUrl$endpoint'))
-        .timeout(const Duration(seconds: 10));
+    final token = await _storage.read(key: "access_token");
+
+    final response = await http.get(
+      Uri.parse('$baseUrl$endpoint'),
+      headers: {
+        'Content-Type': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    ).timeout(const Duration(seconds: 10));
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return json.decode(response.body);
@@ -26,17 +33,17 @@ class ApiService {
     }
   }
 
-  // -----------------------------
-  // Helper: POST
-  // -----------------------------
   Future<dynamic> _post(String endpoint, dynamic body) async {
-    final response = await http
-        .post(
-          Uri.parse('$baseUrl$endpoint'),
-          headers: {'Content-Type': 'application/json'},
-          body: json.encode(body),
-        )
-        .timeout(const Duration(seconds: 10));
+    final token = await _storage.read(key: "access_token");
+
+    final response = await http.post(
+      Uri.parse('$baseUrl$endpoint'),
+      headers: {
+        'Content-Type': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+      body: json.encode(body),
+    ).timeout(const Duration(seconds: 10));
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return json.decode(response.body);
@@ -47,14 +54,9 @@ class ApiService {
     }
   }
 
-  // -----------------------------
-  // Unternehmen
-  // -----------------------------
   Future<List<Unternehmen>> getUnternehmen() async {
     final data = await _get('/unternehmen');
-    return (data as List)
-        .map((json) => Unternehmen.fromJson(json))
-        .toList();
+    return (data as List).map((json) => Unternehmen.fromJson(json)).toList();
   }
 
   Future<Unternehmen> createUnternehmen(Unternehmen unternehmen) async {
@@ -62,26 +64,16 @@ class ApiService {
     return Unternehmen.fromJson(data);
   }
 
-  // -----------------------------
-  // Kriterien
-  // -----------------------------
   Future<List<Kriterium>> getKriterien() async {
     final data = await _get('/kriterien');
-    return (data as List)
-        .map((json) => Kriterium.fromJson(json))
-        .toList();
+    return (data as List).map((json) => Kriterium.fromJson(json)).toList();
   }
 
   Future<List<Kriterium>> getKriterienByWertigkeit(String wertigkeit) async {
     final data = await _get('/kriterien/$wertigkeit');
-    return (data as List)
-        .map((json) => Kriterium.fromJson(json))
-        .toList();
+    return (data as List).map((json) => Kriterium.fromJson(json)).toList();
   }
 
-  // -----------------------------
-  // Bewertungen
-  // -----------------------------
   Future<List<BewertungDetail>> getBewertungenByUnternehmen(int id) async {
     final data = await _get('/bewertungen/unternehmen/$id');
     return (data as List)
@@ -90,13 +82,16 @@ class ApiService {
   }
 
   Future<Bewertung> saveBewertung(BewertungCreate bewertung) async {
-    final data = await _post('/bewertungen', bewertung.toJson());
+    final data = await _post('/bewertungen', {
+      'unternehmen_id': bewertung.unternehmenId,
+      'kriterium_id': bewertung.kriteriumId,
+      'punkte': bewertung.punkte,
+      'kommentar': bewertung.kommentar,
+      'benutzer': bewertung.benutzer,
+    });
     return Bewertung.fromJson(data);
   }
 
-  // -----------------------------
-  // Scores / Ranking / Vergleich
-  // -----------------------------
   Future<Map<String, dynamic>> getUnternehmenScore(int id) async {
     return await _get('/scores/unternehmen/$id');
   }
@@ -109,3 +104,8 @@ class ApiService {
     return await _get('/scores/ranking');
   }
 }
+
+// Provider für Riverpod
+final apiServiceProvider = Provider<ApiService>((ref) {
+  return ApiService();
+});

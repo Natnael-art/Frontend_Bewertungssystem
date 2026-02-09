@@ -7,11 +7,16 @@ import 'package:bewertungssystem_app/pages/kriterien/kriterium_create_dialog.dar
 import 'package:bewertungssystem_app/pages/kriterien/kriterium_edit_dialog.dart';
 
 
-class AdminKriterienPage extends ConsumerWidget {
+class AdminKriterienPage extends ConsumerStatefulWidget {
   const AdminKriterienPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AdminKriterienPage> createState() => _AdminKriterienPageState();
+}
+
+class _AdminKriterienPageState extends ConsumerState<AdminKriterienPage> {
+  @override
+  Widget build(BuildContext context) {
     final kriterienAsync = ref.watch(kriterienProvider);
 
     return Scaffold(
@@ -20,7 +25,7 @@ class AdminKriterienPage extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () => ref.refresh(kriterienProvider),
+            onPressed: () => ref.invalidate(kriterienProvider),
           ),
         ],
       ),
@@ -95,15 +100,19 @@ class AdminKriterienPage extends ConsumerWidget {
 
               try {
                 await repo.delete(kriteriumId);
-                ref.refresh(kriterienProvider);
+                ref.invalidate(kriterienProvider);
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Kriterium gelöscht")),
-                );
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Kriterium gelöscht")),
+                  );
+                }
               } catch (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Fehler: $e")),
-                );
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Fehler: $e")),
+                  );
+                }
               }
             },
             child: const Text("Löschen"),

@@ -49,7 +49,7 @@ class _HomeCard extends StatelessWidget {
       elevation: 2,
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () => context.go(item.route),
+        onTap: () => context.push(item.route),
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(

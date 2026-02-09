@@ -20,7 +20,7 @@ class UnternehmenPage extends ConsumerWidget {
         title: const Text("Unternehmen"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/'),
+          onPressed: () => context.pop(), // ← richtige Navigation
         ),
       ),
       body: unternehmenAsync.when(

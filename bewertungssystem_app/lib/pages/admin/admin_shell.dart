@@ -14,7 +14,9 @@ class AdminShell extends ConsumerWidget {
 
     // Guard: nur Admin
     if (!auth.isAdmin) {
-      Future.microtask(() => context.go('/'));
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) context.go('/');
+      });
       return const SizedBox.shrink();
     }
 

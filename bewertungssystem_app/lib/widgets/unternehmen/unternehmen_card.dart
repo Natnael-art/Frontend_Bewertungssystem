@@ -21,7 +21,7 @@ class UnternehmenCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: ListTile(
         title: Text(unternehmen.name),
-        subtitle: Text(unternehmen.branche),
+        subtitle: Text(unternehmen.branche ?? 'Unbekannt'),
         onTap: onTap,
         onLongPress: onLongPress,
         trailing: IconButton(

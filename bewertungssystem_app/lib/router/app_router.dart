@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -48,31 +47,31 @@ class AppRouter {
       routes: [
         GoRoute(
           path: '/login',
-          builder: (_, __) => const LoginPage(),
+          builder: (context, state) => const LoginPage(),
         ),
         GoRoute(
           path: '/onboarding',
-          builder: (_, __) => const OnboardingPage(),
+          builder: (context, state) => const OnboardingPage(),
         ),
         GoRoute(
           path: '/',
-          builder: (_, __) => const HomePage(),
+          builder: (context, state) => const HomePage(),
         ),
         GoRoute(
           path: '/unternehmen',
-          builder: (_, __) => const UnternehmenPage(),
+          builder: (context, state) => const UnternehmenPage(),
         ),
         GoRoute(
           path: '/bewertungen',
-          builder: (_, __) => const BewertungenPage(),
+          builder: (context, state) => const BewertungenPage(),
         ),
         GoRoute(
           path: '/ranking',
-          builder: (_, __) => const RankingPage(),
+          builder: (context, state) => const RankingPage(),
         ),
         GoRoute(
           path: '/vergleich',
-          builder: (_, __) => const VergleichPage(),
+          builder: (context, state) => const VergleichPage(),
         ),
 
         // ADMIN SHELL
@@ -81,19 +80,19 @@ class AppRouter {
           routes: [
             GoRoute(
               path: '/admin',
-              builder: (_, __) => const AdminDashboardPage(),
+              builder: (context, state) => const AdminDashboardPage(),
             ),
             GoRoute(
               path: '/admin/unternehmen',
-              builder: (_, __) => const AdminUnternehmenPage(),
+              builder: (context, state) => const AdminUnternehmenPage(),
             ),
             GoRoute(
               path: '/admin/kriterien',
-              builder: (_, __) => const AdminKriterienPage(),
+              builder: (context, state) => const AdminKriterienPage(),
             ),
             GoRoute(
               path: '/admin/user',
-              builder: (_, __) => const AdminUserPage(),
+              builder: (context, state) => const AdminUserPage(),
             ),
           ],
         ),

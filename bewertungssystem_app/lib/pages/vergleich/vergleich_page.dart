@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/vergleich_provider.dart';
 import '../../providers/unternehmen_provider.dart';
 import '../../models/unternehmen.dart';
+import '../../models/vergleich.dart';
+
+import 'package:go_router/go_router.dart';
 
 class VergleichPage extends ConsumerWidget {
   const VergleichPage({super.key});
@@ -11,15 +14,19 @@ class VergleichPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(vergleichProvider);
-    final notifier = ref.read(vergleichProvider.notifier);
 
     // WICHTIG: dein existierender Provider-Name
     final unternehmenAsync = ref.watch(unternehmenListProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Unternehmen vergleichen"),
+        title: const Text("Vergleich"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+        ),
       ),
+
       body: unternehmenAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, _) => Center(child: Text("Fehler: $err")),
@@ -71,8 +78,8 @@ class VergleichPage extends ConsumerWidget {
                   return CheckboxListTile(
                     value: selected,
                     title: Text(u.name),
-                    subtitle: Text(u.branche),
-                    onChanged: (_) => notifier.toggle(u.id),
+                    subtitle: Text(u.branche ?? 'Unbekannt'),
+                    onChanged: (_) => ref.read(vergleichProvider.notifier).toggle(u.id),
                   );
                 }).toList(),
               ),
@@ -98,31 +105,30 @@ class VergleichPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildResults(Map<String, dynamic> result) {
-    final list = result['vergleich'] as List? ?? [];
+Widget _buildResults(VergleichResponse result) {
+  final list = result.vergleich;
 
-    return ListView(
-      padding: const EdgeInsets.all(16),
-      children: [
-        const Text(
-          "Vergleichsergebnisse",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 16),
+  return ListView(
+    padding: const EdgeInsets.all(16),
+    children: [
+      const Text(
+        "Vergleichsergebnisse",
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+      const SizedBox(height: 16),
 
-        ...list.map((u) {
-          // u ist dynamic (Map), deshalb defensiv:
-          final name = u['name']?.toString() ?? '';
-          final score = u['gesamt_score']?.toString() ?? '?';
+      ...list.map((u) {
+        final name = u.name;
+        final score = u.gesamtScore.toString();
 
-          return Card(
-            child: ListTile(
-              title: Text(name),
-              subtitle: Text("Score: $score%"),
-            ),
-          );
-        }),
-      ],
-    );
-  }
+        return Card(
+          child: ListTile(
+            title: Text(name),
+            subtitle: Text("Score: $score Punkte"),
+          ),
+        );
+      }),
+    ],
+  );
+}
 }

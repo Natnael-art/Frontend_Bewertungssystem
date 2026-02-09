@@ -1,9 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/unternehmen.dart';
-import '../models/kriterium.dart';
-import '../models/bewertung.dart';
-import '../providers/api_service_provider.dart';
-import '../repositories/bewertung_repository.dart';
+import '../../models/kriterium.dart';
+import '../../models/bewertung.dart';
+import '../../providers/api_service_provider.dart';
+import '../../repositories/bewertung_repository.dart';
 
 class BewertungState {
   final Map<int, double> punkte;
