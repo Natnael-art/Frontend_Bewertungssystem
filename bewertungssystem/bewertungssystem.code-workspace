@@ -1,8 +1,13 @@
 {
   "folders": [
-    { "path": "." }
+    {
+      "path": "backend"
+    }
   ],
   "settings": {
-    "python.defaultInterpreterPath": "${workspaceFolder}/env/Scripts/python.exe"
+    "python.defaultInterpreterPath": "${workspaceFolder}/backend/env/Scripts/python.exe",
+    "python.analysis.extraPaths": [
+      "${workspaceFolder}/backend"
+    ]
   }
 }
